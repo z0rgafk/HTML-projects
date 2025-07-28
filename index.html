@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Random Name Picker</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #121212;
+    color: #eee;
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: 30px;
+    color: #1db954;
+  }
+  button {
+    background-color: #1db954;
+    border: none;
+    color: white;
+    font-size: 22px;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #17a244;
+  }
+  .result {
+    margin-top: 40px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffa726;
+    min-height: 50px;
+  }
+  .footer {
+    margin-top: 60px;
+    font-size: 12px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<h1>Random Name Picker</h1>
+
+<button id="pickBtn">Pick a random Name</button>
+
+<div id="result" class="result">Press the button to get a cool name!</div>
+
+<script>
+  const coolNames = [
+  
+  "Nyx", "Kryze", "Vexor", "Jinx", "Axel", "Lyric", "Talon", "Rogue",
+  "Nexus", "Kade", "Zeph", "Zylo", "Flux", "Drift", "Mako", "Blitz", "Frost", "Vyre",
+  "Pyro", "Raze", "Echo", "Nova", "Vorn", "Skye", "Quinn", "Hex", "Luxe", "Rune",
+  "Strix", "Valk", "Zane", "Kiro", "Shade", "Volt", "Cyra", "Onyx", "Kito", "Stryx",
+  "Riven", "Ashen", "Zeal", "Voss", "Pax", "Kael", "Bane", "Axon", "Neon", "Zed",
+  "Kane", "Lynx", "Sable", "Jett", "Krex", "Vex", "Skorn", "Vale", "Drax", "Sorin",
+  "Nix", "Taze", "Ziro", "Laz", "Vyn", "Ziv", "Hexx", "Zal", "Zex", "Kyx",
+  "Ryx", "Pyx", "Xyn", "Yor", "Vax", "Dax", "Zan", "Fyn", "Ryn",
+
+  
+  "Vexa", "Nyra", "Lyra", "Kaia", "Zara", "Mira", "Sora", "Luna", "Rhea", "Vira",
+  "Kira", "Nyla", "Zina", "Tira", "Xyla", "Feya", "Zyla", "Nova", "Veya", "Aria",
+  "Selis", "Vexa", "Syla", "Lira", "Nixie", "Zyra", "Xara", "Kyna", "Myra", "Tyla",
+  "Cyra", "Vina", "Ryna", "Lila", "Jora", "Kyla", "Zari", "Nira", "Taya", "Mira",
+  "Veya", "Xina", "Sena", "Zyla", "Fina", "Lysa", "Dara", "Sari", "Rila", "Vina",
+  "Nyla", "Maya", "Kaya", "Rina", "Tira", "Zara", "Luna"
+];
+
+  function getRandomIndex(max) {
+    if (window.crypto && window.crypto.getRandomValues) {
+      const randomBuffer = new Uint32Array(1);
+      window.crypto.getRandomValues(randomBuffer);
+      return randomBuffer[0] % max;
+    }
+    return Math.floor(Math.random() * max);
+  }
+
+  const pickBtn = document.getElementById('pickBtn');
+  const resultDiv = document.getElementById('result');
+
+  pickBtn.addEventListener('click', () => {
+    const index = getRandomIndex(coolNames.length);
+    const name = coolNames[index];
+    resultDiv.textContent = `🎮 Your name is: ${name}`;
+  });
+</script>
+
+<div class="footer">Made within like 5 mins by sinx 🤑</div>
+
+</body>
+</html>
