@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock Paper Scissors</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #1d1d1d, #333);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .start-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #111;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .start-screen button {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .choices {
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .choice {
+      background: #444;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      border: 2px solid transparent;
+      transition: 0.3s;
+    }
+
+    .choice:hover {
+      background: #555;
+    }
+
+    .correct {
+      border-color: green;
+    }
+
+    .wrong {
+      border-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="start-screen" id="startScreen">
+    <h1>Rock Paper Scissors</h1>
+    <button id="playBtn">Play</button>
+  </div>
+
+  <h1 id="gameTitle" class="hidden">Make Your Choice:</h1>
+  <div class="choices hidden" id="choices">
+    <div class="choice" data-choice="rock">🪨 Rock</div>
+    <div class="choice" data-choice="paper">📄 Paper</div>
+    <div class="choice" data-choice="scissors">✂️ Scissors</div>
+  </div>
+  <div id="handDisplay" class="hidden"></div>
+  <div id="result" class="hidden"></div>
+
+  <script>
+    window.onload = () => {
+      const playBtn = document.getElementById('playBtn');
+      const startScreen = document.getElementById('startScreen');
+      const gameTitle = document.getElementById('gameTitle');
+      const choicesContainer = document.getElementById('choices');
+      const handDisplay = document.getElementById('handDisplay');
+      const resultEl = document.getElementById('result');
+      const choices = document.querySelectorAll('.choice');
+
+      const emojiMap = {
+        rock: '🪨',
+        paper: '📄',
+        scissors: '✂️'
+      };
+
+      const getRandomChoice = () => {
+        const options = ['rock', 'paper', 'scissors'];
+        return options[Math.floor(Math.random() * options.length)];
+      };
+
+      function clearEffects() {
+        choices.forEach(choice => choice.classList.remove('correct', 'wrong'));
+      }
+
+      function playRound(playerChoice) {
+        clearEffects();
+        const aiChoice = getRandomChoice();
+
+        handDisplay.textContent = `You: ${emojiMap[playerChoice]} | AI: ${emojiMap[aiChoice]}`;
+        handDisplay.classList.remove('hidden');
+        resultEl.classList.remove('hidden');
+
+        const playerDiv = document.querySelector(`[data-choice="${playerChoice}"]`);
+
+        if (playerChoice === aiChoice) {
+          resultEl.textContent = "Draw!";
+        } else if (
+          (playerChoice === 'rock' && aiChoice === 'scissors') ||
+          (playerChoice === 'scissors' && aiChoice === 'paper') ||
+          (playerChoice === 'paper' && aiChoice === 'rock')
+        ) {
+          resultEl.textContent = "You win!";
+          playerDiv.classList.add('correct');
+        } else {
+          resultEl.textContent = "You lose!";
+          playerDiv.classList.add('wrong');
+        }
+      }
+
+      choices.forEach(choice => {
+        choice.addEventListener('click', () => {
+          const playerChoice = choice.getAttribute('data-choice');
+          playRound(playerChoice);
+        });
+      });
+
+      playBtn.addEventListener('click', () => {
+        startScreen.classList.add('hidden');
+        gameTitle.classList.remove('hidden');
+        choicesContainer.classList.remove('hidden');
+      });
+    };
+  </script>
+</body>
+</html>
