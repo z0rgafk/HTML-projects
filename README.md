@@ -1,1 +1,3 @@
-https://z0rgafk.github.io/HTML-projects/
+Instructions :
+1. Download the project
+2. open with brower 
